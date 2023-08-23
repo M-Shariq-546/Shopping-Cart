@@ -21,13 +21,15 @@ class Product(metaclass=abc.ABCMeta):
 class NumberedProduct(Product):
     def product_catalog(self, prodarr):
         print("Numbered Product Entered Successfully \n Your Catalog is:")
+        lists = ["Products", "Code" , "price/Piece"]
+        print(lists)
         for product in prodarr:
             print(product)
 
     def insert(self, prodarr):
         prodname = input("Enter Product Name: ")
         prodcode = input("Enter Product Code: ")
-        prodprice = float(input("Enter Product Price: "))
+        prodprice = float(input("Enter Product Price / piece: "))
 
         prodlist = [prodname, prodcode, prodprice]
 
@@ -39,14 +41,17 @@ class NumberedProduct(Product):
 class WeightedProduct(Product):
     def product_catalog(self, prodarr):
         print("Weighted Product Entered Successfully \n Your Catalog is:")
+        lists = ["Products", "Code" , "Price/Liter"]
+        print(lists)
         for product in prodarr:
             print(product)
 
     def insert(self, prodarr):
         prodname = input("Enter Product Name: ")
         prodcode = input("Enter Product Code: ")
-        prodprice = float(input("Enter Product Price: "))
+        prodprice = float(input("Enter Product Price / litre: "))
 
+        
         prodlist = [prodname, prodcode, prodprice]
 
         prodarr.append(prodlist)
