@@ -30,7 +30,7 @@ class CartGUI:
         }
 
         self.selected_product = tk.StringVar()
-        self.selected_product.set("Shampoo")
+        self.selected_product.set("Please Select Your Product")
         self.quantity_var = tk.IntVar()
 
         self.product_label = tk.Label(root, text="Select Product:")
@@ -57,6 +57,53 @@ class CartGUI:
         self.cart_text = tk.Text(root, height=10, width=40)
         self.cart_text.pack()
 
+        
+        self.add_product_button = tk.Button(root, text="Add Product", command=self.add_new_product)
+        self.add_product_button.pack()
+
+    def add_new_product(self):
+        self.new_product_window = tk.Toplevel(self.root)
+        self.new_product_window.title("Add New Product")
+        
+        self.product_name_label = tk.Label(self.new_product_window, text="Product Name:")
+        self.product_name_label.pack()
+
+        self.product_name_entry = tk.Entry(self.new_product_window)
+        self.product_name_entry.pack()
+
+        self.product_code_label = tk.Label(self.new_product_window, text="Product Code:")
+        self.product_code_label.pack()
+
+        self.product_code_entry = tk.Entry(self.new_product_window)
+        self.product_code_entry.pack()
+
+        self.product_price_label = tk.Label(self.new_product_window, text="Product Price:")
+        self.product_price_label.pack()
+
+        self.product_price_entry = tk.Entry(self.new_product_window)
+        self.product_price_entry.pack()
+
+        # self.is_weight_var = tk.BooleanVar()
+        # self.is_weight_var.set(True)
+        # self.product_is_weight = tk.Checkbutton(self.new_product_window, text="Is Weight-based?", variable=self.is_weight_var)
+        # self.product_is_weight.pack()
+
+        self.save_button = tk.Button(self.new_product_window, text="Save", command=self.save_new_product)
+        self.save_button.pack()
+
+    def save_new_product(self):
+        product_name = self.product_name_entry.get()
+        product_code = self.product_code_entry.get()
+        product_price = float(self.product_price_entry.get())
+        is_weight = self.is_weight_var.get()
+
+        new_product = Product(product_name, product_code, product_price, is_weight)
+        self.products[product_name] = new_product
+        self.selected_product.set(product_name)
+
+        self.product_dropdown['menu'].add_command(label=product_name, command=tk._setit(self.selected_product, product_name))
+        self.new_product_window.destroy()
+        
     def add_to_cart(self):
         product_name = self.selected_product.get()
         quantity = self.quantity_var.get()
